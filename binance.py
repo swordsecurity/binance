@@ -3,6 +3,7 @@ import hashlib
 import logging
 import requests
 import time
+from datetime import datetime
 try:
     from urllib import urlencode
 
@@ -37,7 +38,7 @@ def set(apiKey, secret):
 def prices():
     """Get latest prices for all symbols."""
     data = request("GET", "/api/v1/ticker/allPrices")
-    return {d["symbol"]: d["price"] for d in data}
+    return {"data": {d["symbol"]: d["price"] for d in data}, "date" : datetime.now().strftime('%Y-%m-%d %H:%M:%S') }
 
 
 def tickers():
